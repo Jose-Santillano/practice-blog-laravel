@@ -7,6 +7,8 @@ use App\Http\Controllers\PostsController;
 //Ruta encargada de mostrar la página principal.
 Route::get('/', [HomeController::class, "show"]);
 
+Route::view('/layout', 'layout.app');
+
 //Agrupamos las rutas para mejorar la legibilidad del código.
 Route::controller(PostsController::class)->group(function () {
     
@@ -20,13 +22,13 @@ Route::controller(PostsController::class)->group(function () {
     Route::post('/posts',  "store");
 
     //Ruta para mostrar la edición de un articulo.
-    Route::get('/posts/{id}/edit', "edit");
+    Route::get('/posts/{post}/edit', "edit");
 
     //Ruta para actualizar los datos.
-    Route::patch('/posts/{id}', "update");
+    Route::patch('/posts/{post}', "update");
 
     //Ruta para eliminar los datos.
-    Route::delete('/posts/{id}', "destroy");
+    Route::delete('/posts/{post}', "destroy");
 });
 
 

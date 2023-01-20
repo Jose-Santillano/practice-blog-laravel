@@ -1,23 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Post</title>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-    <nav class="nav">
-        <div class="nav-title">
-            <h2><a href="/">Blog de José</a></h2>
-        </div>
-        <div class="nav-links">
-            <a href="/posts/create">Crear un post</a>
-        </div>
-    </nav>
+<x-layout :title="$post->title">
     <div class="container-posts">
         <article class="content-post">
             <h1>
@@ -27,7 +8,26 @@
                 {{ $post->content }}
             </p>
             <a href="/">Inicio</a>
+            <a href="/posts/{{ $post->id }}/edit">Editar</a>
+            <form action="/posts/{{ $post->id }}" method="POST">
+                @method('DELETE')
+                @csrf
+                <button type="submit" class="" onclick="return confirm('¿Deseas eliminar este post?')">Eliminar</button>
+            </form>
         </article>
+        <h4>Comentarios</h4>
+        <div>
+            @foreach ($comments as $comment)
+                <div>
+                    <div>
+                        {{ $comment->comment }}
+                    </div>
+                    <small>
+                        {{ $comment->name }}
+                    </small>
+                    <hr>
+                </div>
+            @endforeach
+        </div>
     </div>
-</body>
-</html>
+</x-layout>

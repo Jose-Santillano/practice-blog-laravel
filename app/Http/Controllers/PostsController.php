@@ -34,6 +34,8 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    //Método para almacenar la información en la base de datos.
     public function store(Request $request)
     {
         //Forma personal y más segura.
@@ -65,13 +67,18 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //Método para mostrar la información extraída de la base de datos.
     public function show(Post $post)
     {
         //Forma segura.
         //$post = Post::findOrFail($id);
 
+        //Recuperamos los comentarios.
+        $comments = $post->comments;
+
         return view('posts.show')->with([
             'post'=>$post,
+            'comments'=>$comments
         ]);
     }
 
@@ -81,9 +88,12 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    //Método para extraer y mostrar la información de la vista edit.
+    public function edit(Post $post)
     {
-        return "Página de edición de un artículo especifíco ({$id})";
+        return view('posts.edit')->with([
+            'post'=>$post,
+        ]);
     }
 
     /**
@@ -93,9 +103,16 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    //Método para actualizar directamente en la base de datos.
+    public function update(Request $request, Post $post)
     {
-        //
+        $post->update([
+            'title'=>$request->input('title'),
+            'excerpt'=>$request->input('excerpt'),
+            'content'=>$request->input('content'),
+        ]);
+        
+        return redirect('/');
     }
 
     /**
@@ -104,8 +121,11 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    //Método encargado de eliminar el post en particular.
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect('/');
     }
 }
