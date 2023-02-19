@@ -9,7 +9,7 @@
             <div class="form-group">
                 <label for="">Título</label>
                 <input type="text" name="title" value="{{ old('title') }}">
-                @error('title')
+                @error('enderrortitle')
                     <div class="text-red-500 text-xs">
                         {{ $message }}
                     </div>
