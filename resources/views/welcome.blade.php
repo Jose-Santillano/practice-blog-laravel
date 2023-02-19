@@ -2,8 +2,9 @@
     :component="Auth::check() ? 'appLayout' : 'guestLayout'" 
     :title="'Bienvenido'"
 >
+    <!--
     <x-slot name="header">Bievenido a los posts {{ Auth::user()->name }}</x-slot>
-
+    -->
     <div class="container mx-auto">
         <div class="text-center pt-8">
             <h2>Últimos posts</h2>
