@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\CommentsController;
 
 //Ruta encargada de mostrar la página principal.
 Route::get('/', [HomeController::class, "show"]);
@@ -30,6 +31,8 @@ Route::controller(PostsController::class)->group(function () {
     //Ruta encargada de mostar los posts.
     Route::get('/posts/{post}', "show");
 });
+
+Route::middleware('forbidden.words')->post('/posts/{post}/comments', [CommentsController::class, 'store']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -37,5 +37,31 @@
                 </div>
             @endforeach
         </div>
+        <div class="container-form">
+            <form action="/posts/{{ $post->id }}/comments" method="POST" class="form-post">
+                <h2>Escribe un comentario</h2>
+                
+                @csrf
+        
+                <div class="form-group">
+                    <label for="">Nombre</label>
+                    <input type="text" name="name">
+                    @error('name')
+                        <div class="text-red-500 text-xs">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="">Comentario</label>
+                    <textarea name="comment" id="" cols="30" rows="10"></textarea>
+                    @error('comment')
+                        <div class="text-red-500 text-xs">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <button type="submit">Guardar</button>
+            </form>
     </div>
 </x-dynamic-component>
